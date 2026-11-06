@@ -1,0 +1,14 @@
+# Smart Energy Meter — sdkconfig overrides
+#
+# Place this file in the same folder as SmartMeter_OTA.ino
+# Arduino IDE picks it up automatically on next compile.
+#
+# Enables OTA rollback: if new firmware boots but never calls
+# esp_ota_mark_app_valid_cancel_rollback(), the bootloader reverts
+# to the previous firmware on next reboot.
+# Without this, every OTA boot is auto-validated and rollback never fires.
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+
+# Watchdog timeout — default is 5s which is too short for TLS handshake during OTA.
+# 30s gives enough time for GitHub CDN / VPS TLS to complete before chunked loop takes over.
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=30

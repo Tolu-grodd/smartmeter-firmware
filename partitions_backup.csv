@@ -1,0 +1,14 @@
+# Smart Energy Meter — 4MB dev board OTA partition layout
+# ESP32-WROOM-32 (4MB flash)
+#
+# App partitions must align to 0x10000 (64KB) boundaries.
+# app0 starts at 0x20000 — first valid 64KB boundary after otadata.
+# 60KB gap between otadata end (0x11000) and app0 is unavoidable.
+# Both slots: 1.938MB (2,031,616 bytes). Current binary ~1.88MB, 147KB headroom.
+# Production 8MB board uses separate partitions.csv with 3MB slots.
+#
+# Name,     Type, SubType,  Offset,    Size
+nvs,        data, nvs,      0x9000,    0x6000
+otadata,    data, ota,      0xF000,    0x2000
+app0,       app,  ota_0,    0x20000,   0x1F0000
+app1,       app,  ota_1,    0x210000,  0x1F0000
